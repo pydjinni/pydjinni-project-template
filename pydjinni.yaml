@@ -1,0 +1,38 @@
+generate:
+  java:
+    out: generated/java
+    package: pydjinni.template
+  jni:
+    out: generated/jni
+    namespace: pydjinni::template::jni
+  cpp:
+    out:
+      header: generated/cpp/include
+      source: generated/cpp/src
+    namespace: pydjinni::template
+  objc:
+    out: 
+      header: generated/objc/include
+      source: generated/objc/src
+    swift:
+      bridging_header: bridging-header.h
+  objcpp:
+    out: generated/objcpp
+package:
+  name: PyDjinniTemplate
+  description: A template repository that shows how to use PyDjinni with Conan and CMake
+  darwin:
+    platforms:
+      macOS: 11
+      iOS: 13
+  android:
+    compileSdk: 30
+    minSdk: 28
+    targetSdk: 30
+publish:
+  maven:
+    groupId: pro.jothe.pydjinni
+    artifactId: template
+    repository:
+      url: foo
+      # set token with PYDJINNI_OPTION="publish.maven.repository.password:<PASSWORD>"
