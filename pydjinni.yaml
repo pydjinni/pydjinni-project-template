@@ -1,38 +1,50 @@
 generate:
   java:
     out: generated/java
-    package: pydjinni.template
+    package: com.pydjinni.example
+    native_lib: PyDjinniLibrary
   jni:
     out: generated/jni
-    namespace: pydjinni::template::jni
+    namespace: pydjinni::example::jni
+    identifier:
+      file:
+        style: snake_case
+        prefix: jni_
   cpp:
     out:
       header: generated/cpp/include
       source: generated/cpp/src
-    namespace: pydjinni::template
+    namespace: pydjinni::example
   objc:
     out: 
       header: generated/objc/include
       source: generated/objc/src
     swift:
-      bridging_header: bridging-header.h
+      bridging_header: PyDjinniLibrary.h
   objcpp:
     out: generated/objcpp
+    namespace: pydjinni::example::objcpp
+build:
+  conan:
+    profiles: profiles
 package:
-  name: PyDjinniTemplate
-  description: A template repository that shows how to use PyDjinni with Conan and CMake
-  darwin:
+  version: 0.0.4
+  target: PyDjinniLibrary
+  configuration: Debug
+  swiftpackage:
+    publish:
+      repository: https://github.com/pydjinni/pydjinni-project-template.git
+      username: jothepro
+      branch: swiftpackage
     platforms:
-      macOS: 11
-      iOS: 13
-  android:
-    compileSdk: 30
-    minSdk: 28
-    targetSdk: 30
-publish:
-  maven:
-    groupId: pro.jothe.pydjinni
-    artifactId: template
-    repository:
-      url: foo
-      # set token with PYDJINNI_OPTION="publish.maven.repository.password:<PASSWORD>"
+      ios: [armv8]
+      ios_simulator: [x86_64, armv8]
+      macos: [x86_64, armv8]
+  aar:
+    publish:
+      maven_registry: https://maven.pkg.github.com/pydjinni/pydjinni-project-template
+      username: jothepro
+      group_id: com.pydjinni
+      artifact_id: example
+    platforms:
+      android: [x86_64, armv8]

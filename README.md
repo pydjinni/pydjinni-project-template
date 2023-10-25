@@ -10,11 +10,4 @@ Project template using PyDjinni with Conan and CMake to build a library for mult
 
 </div>
 
-# Features
 
-- foo
-- bar
-
-# How to use this template
-
-bla

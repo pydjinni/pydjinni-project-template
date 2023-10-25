@@ -1,2 +1,2 @@
-pydjinni
-conan
+conan==2.0.10
+pydjinni==1.0a2

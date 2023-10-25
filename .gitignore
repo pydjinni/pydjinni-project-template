@@ -1,0 +1,6 @@
+cmake-build-debug
+dist
+build
+.idea
+.env
+CMakeUserPresets.json
