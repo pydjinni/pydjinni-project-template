@@ -10,4 +10,14 @@ Project template using PyDjinni with Conan and CMake to build a library for mult
 
 </div>
 
+## Build Instructions
 
+- Install the Python dependencies:
+  ```sh
+  pip install -r requirements.txt
+  ```
+- Run the PyDjinni package commands to build for Android, iOS and macOS:
+  ```sh
+  pydjinni package aar android
+  pydjinni package swiftpackage ios ios_simulator macos
+  ```
