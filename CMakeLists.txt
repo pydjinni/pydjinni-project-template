@@ -2,10 +2,6 @@ cmake_minimum_required(VERSION 3.24)
 
 project(PyDjinniProjectTemplate)
 
-# TODO load PyDjinni dynamically from github with FetchContent
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
-Include(FetchContent)
-
 include(FetchContent)
 FetchContent_Declare(pydjinni
         URL https://raw.githubusercontent.com/pydjinni/pydjinni/v1.0a2/cmake/modules/PyDjinni.cmake
