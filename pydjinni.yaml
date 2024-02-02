@@ -24,11 +24,14 @@ generate:
   objcpp:
     out: generated/objcpp
     namespace: pydjinni::example::objcpp
+  cppcli:
+    out: generated/cppcli
+    namespace: pydjinni::example::cppcli
 build:
   conan:
     profiles: profiles
 package:
-  version: 0.0.4
+  version: 0.0.5
   target: PyDjinniLibrary
   configuration: Debug
   swiftpackage:
@@ -48,3 +51,13 @@ package:
       artifact_id: example
     platforms:
       android: [x86_64, armv8]
+  nuget:
+    publish:
+      description: "a test library"
+      authors: ["jothepro"]
+      net_version: net8.0
+      readme: README.md
+      source: https://nuget.pkg.github.com/pydjinni/index.json
+      repository: https://github.com/pydjinni/pydjinni-project-template
+    platforms:
+      windows: [x86_64]

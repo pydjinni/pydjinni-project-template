@@ -11,7 +11,7 @@ project(PyDjinniProjectTemplateLibrary LANGUAGES ${PROJECT_LANGUAGES})
 
 pydjinni_generate(interface.pydjinni 
     CONFIG ${CMAKE_SOURCE_DIR}/pydjinni.yaml
-    LANGUAGES cpp java objc
+    LANGUAGES cpp java objc cppcli
     CLEAN
 )
 
@@ -40,21 +40,38 @@ if(CMAKE_SYSTEM_NAME IN_LIST DARWIN_SYSTEM)
         XCODE_ATTRIBUTE_DEFINES_MODULE YES
         XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES
         XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT dwarf-with-dsym
-        LIBRARY_OUTPUT_DIRECTORY_DEBUG .
-        LIBRARY_OUTPUT_DIRECTORY_RELEASE .
     )
+    foreach(CONFIGURATION_TYPE ${CMAKE_CONFIGURATION_TYPES})
+        string(TOUPPER ${CONFIGURATION_TYPE} CONFIGURATION_TYPE)
+        set_target_properties(PyDjinniLibrary PROPERTIES
+            LIBRARY_OUTPUT_DIRECTORY_${CONFIGURATION_TYPE} .
+        )
+    endforeach()
     target_link_libraries(PyDjinniLibrary PRIVATE PyDjinniLibrary::Cpp)
     install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/PydjinniLibrary.framework.dSYM DESTINATION dist)
 elseif(ANDROID)
     add_library(PyDjinniLibrary SHARED ${jni_GENERATED_SOURCES})
     target_include_directories(PyDjinniLibrary PRIVATE ${jni_INCLUDE_DIR})
     target_link_libraries(PyDjinniLibrary PRIVATE JNI::JNI PyDjinniLibrary::Cpp)
-    add_jar(JavaPyDjinniLibrary
-        SOURCES ${java_GENERATED_SOURCES}
-        OUTPUT_NAME PyDjinniLibrary
+    install(DIRECTORY ${java_SOURCE_DIR} DESTINATION dist/PyDjinniLibrary)
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    add_library(PyDjinniLibrary SHARED ${cppcli_GENERATED_SOURCES} ${cppcli_GENERATED_HEADERS})
+    target_include_directories(PyDjinniLibrary PUBLIC ${cppcli_INCLUDE_DIR})
+    set_target_properties(PyDjinniLibrary PROPERTIES
+        COMMON_LANGUAGE_RUNTIME "netcore"
+        DOTNET_TARGET_FRAMEWORK "net8.0"
+        DOTNET_SDK "Microsoft.NET.Sdk"
     )
-    add_dependencies(PyDjinniLibrary JavaPyDjinniLibrary)
-    install_jar(JavaPyDjinniLibrary dist)
+    target_compile_options(PyDjinniLibrary PRIVATE /doc)
+    foreach(CONFIGURATION_TYPE ${CMAKE_CONFIGURATION_TYPES})
+        string(TOUPPER ${CONFIGURATION_TYPE} CONFIGURATION_TYPE)
+        set_target_properties(PyDjinniLibrary PROPERTIES
+            PDB_OUTPUT_DIRECTORY_${CONFIGURATION_TYPE} ${CMAKE_BINARY_DIR}/dist
+            LIBRARY_OUTPUT_DIRECTORY_${CONFIGURATION_TYPE} ${CMAKE_BINARY_DIR}/dist
+            RUNTIME_OUTPUT_DIRECTORY_${CONFIGURATION_TYPE} ${CMAKE_BINARY_DIR}/dist
+        )
+    endforeach()
+    target_link_libraries(PyDjinniLibrary PRIVATE PyDjinniLibrary::Cpp)
 endif()
 
 install(TARGETS PyDjinniLibrary DESTINATION dist)

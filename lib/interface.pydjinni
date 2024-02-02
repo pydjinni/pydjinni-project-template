@@ -1,3 +1,4 @@
+# awesome interface
 hello_world = main interface +cpp {
     static say_hello() -> string;
     static call_me(callback: (message: string));

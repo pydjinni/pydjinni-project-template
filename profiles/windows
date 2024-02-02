@@ -1,0 +1,8 @@
+[settings]
+os=Windows
+compiler=msvc
+compiler.cppstd=14
+compiler.runtime=dynamic
+compiler.version=193
+[conf]
+tools.cmake.cmaketoolchain:generator=Visual Studio 17 2022
