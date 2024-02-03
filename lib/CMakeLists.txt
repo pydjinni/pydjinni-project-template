@@ -1,4 +1,3 @@
-
 set(PROJECT_LANGUAGES CXX)
 set(DARWIN_SYSTEM "Darwin;iOS")
 if(CMAKE_SYSTEM_NAME IN_LIST DARWIN_SYSTEM)
@@ -50,6 +49,11 @@ if(CMAKE_SYSTEM_NAME IN_LIST DARWIN_SYSTEM)
     target_link_libraries(PyDjinniLibrary PRIVATE PyDjinniLibrary::Cpp)
     install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/PydjinniLibrary.framework.dSYM DESTINATION dist)
 elseif(ANDROID)
+    find_package(Java 1.8 REQUIRED)
+    include(UseJava)
+    set(JAVA_AWT_LIBRARY NotNeeded)
+    set(JAVA_AWT_INCLUDE_PATH NotNeeded)
+    find_package(JNI REQUIRED)
     add_library(PyDjinniLibrary SHARED ${jni_GENERATED_SOURCES})
     target_include_directories(PyDjinniLibrary PRIVATE ${jni_INCLUDE_DIR})
     target_link_libraries(PyDjinniLibrary PRIVATE JNI::JNI PyDjinniLibrary::Cpp)
@@ -74,4 +78,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     target_link_libraries(PyDjinniLibrary PRIVATE PyDjinniLibrary::Cpp)
 endif()
 
+set_target_properties(PyDjinniLibrary PROPERTIES
+    EXCLUDE_FROM_ALL TRUE
+)
 install(TARGETS PyDjinniLibrary DESTINATION dist)

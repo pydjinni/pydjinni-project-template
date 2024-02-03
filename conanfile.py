@@ -1,5 +1,5 @@
 from conan import ConanFile
-from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout, CMakeDeps
+from conan.tools.cmake import CMakeToolchain, CMake, CMakeDeps
 
 
 class PyDjinniLibraryRecipe(ConanFile):
@@ -16,6 +16,8 @@ class PyDjinniLibraryRecipe(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
+
+    test_requires = "catch2/3.5.2"
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -34,7 +36,7 @@ class PyDjinniLibraryRecipe(ConanFile):
     def build(self):
         cmake = CMake(self)
         cmake.configure()
-        cmake.build()
+        cmake.build(target="PyDjinniLibrary")
         cmake.install()
 
     
