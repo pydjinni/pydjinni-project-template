@@ -46,7 +46,7 @@ ctest --output-on-failure
 conan install . --output-folder=build --build=missing
 cd build
 # assuming Visual Studio 17 2022 is your VS version and that it matches your default profile
-cmake .. -G "Visual Studio 17 2022" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+cmake .. -G "Visual Studio 17 2022" -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
 cmake --build . --config Release --target tests
 ctest --output-on-failure
 ```
