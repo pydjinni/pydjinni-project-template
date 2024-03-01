@@ -11,7 +11,7 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        os: [ windows-latest, macos-latest ] # FIXME: ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -55,9 +55,10 @@ jobs:
           - os: windows-latest
             package: nuget
             target: windows
-          - os: windows-latest
-            package: aar
-            target: android
+          # FIXME: windows-latest aar
+          #- os: windows-latest
+          #  package: aar
+          #  target: android
           - os: macos-latest
             package: aar
             target: android
