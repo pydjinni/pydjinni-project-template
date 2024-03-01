@@ -1,2 +1,2 @@
 conan==2.0.17
-pydjinni==1.0a4
+pydjinni @ git+https://git@github.com/pydjinni/pydjinni.git@fix/package_aar_windows

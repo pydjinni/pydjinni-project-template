@@ -10,6 +10,17 @@ Project template using PyDjinni with Conan and CMake to build a library for mult
 
 </div>
 
+## Prerequisites
+
+### Android
+
+- `ANDROID_HOME` must be set to an Android SDK installation on your device.
+- `JAVA_HOME` must be set to a Java installation >= Java 17.
+
+#### Windows
+
+- `MinGW Makefiles` are used for the build. Install `MinGW` and make sure the `make` command (`mingw32-make`) is installed.
+
 ## Build Instructions
 
 - Install the Python dependencies:
