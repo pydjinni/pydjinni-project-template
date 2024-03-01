@@ -76,6 +76,9 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
         )
     endforeach()
     target_link_libraries(PyDjinniLibrary PRIVATE PyDjinniLibrary::Cpp)
+else()
+    # Fallback for unsupported target platforms
+    add_library(PyDjinniLibrary ALIAS CppPyDjinniLibrary)
 endif()
 
 set_target_properties(PyDjinniLibrary PROPERTIES
