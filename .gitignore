@@ -9,6 +9,7 @@ build
 !.vscode/extensions.json
 .env
 venv
+.venv
 CMakeUserPresets.json
 conan_provider.cmake
 .DS_Store

@@ -32,6 +32,6 @@ list(APPEND CMAKE_MODULE_PATH ${PyDjinni_ROOT_DIR}/cmake/modules)
 find_package_handle_standard_args(PyDjinni
         VERSION_VAR PyDjinni_VERSION
         REQUIRED_VARS
-        PyDjinni_ROOT_DIR
-        PyDjinni_VERSION
+            PyDjinni_ROOT_DIR
+            PyDjinni_VERSION
 )
