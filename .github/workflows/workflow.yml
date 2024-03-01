@@ -71,7 +71,7 @@ jobs:
         if: ${{ matrix.target }} == android
         with:
           distribution: 'corretto'
-          java-version: '11'
+          java-version: '17'
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
