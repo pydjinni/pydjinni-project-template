@@ -38,6 +38,3 @@ class PyDjinniLibraryRecipe(ConanFile):
         cmake.configure()
         cmake.build(target="PyDjinniLibrary")
         cmake.install()
-
-    
-
