@@ -32,7 +32,7 @@ jobs:
         working-directory: build
       - name: CMake configure (Windows)
         if: matrix.os == 'windows-latest'
-        run: cmake .. -G "Visual Studio 17 2022" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+        run: cmake .. -G "Visual Studio 17 2022" -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
         working-directory: build
       - name: CMake build (macOS, Linux)
         if: matrix.os != 'windows-latest'
