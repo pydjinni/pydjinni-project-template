@@ -1,6 +1,15 @@
 cmake-build-debug
 dist
 build
-.idea
+.idea/*
+!.idea/.name
+!.idea/icon.png
+!.idea/externalDependencies.xml
+.vscode/*
+!.vscode/extensions.json
 .env
+venv
+.venv
 CMakeUserPresets.json
+conan_provider.cmake
+.DS_Store

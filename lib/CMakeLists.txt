@@ -1,4 +1,3 @@
-
 set(PROJECT_LANGUAGES CXX)
 set(DARWIN_SYSTEM "Darwin;iOS")
 if(CMAKE_SYSTEM_NAME IN_LIST DARWIN_SYSTEM)
@@ -40,6 +39,7 @@ if(CMAKE_SYSTEM_NAME IN_LIST DARWIN_SYSTEM)
         XCODE_ATTRIBUTE_DEFINES_MODULE YES
         XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES
         XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT dwarf-with-dsym
+        EXCLUDE_FROM_ALL TRUE
     )
     foreach(CONFIGURATION_TYPE ${CMAKE_CONFIGURATION_TYPES})
         string(TOUPPER ${CONFIGURATION_TYPE} CONFIGURATION_TYPE)
@@ -48,12 +48,20 @@ if(CMAKE_SYSTEM_NAME IN_LIST DARWIN_SYSTEM)
         )
     endforeach()
     target_link_libraries(PyDjinniLibrary PRIVATE PyDjinniLibrary::Cpp)
-    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/PydjinniLibrary.framework.dSYM DESTINATION dist)
+    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/PydjinniLibrary.framework.dSYM DESTINATION dist OPTIONAL)
+    install(TARGETS PyDjinniLibrary DESTINATION dist)
 elseif(ANDROID)
+    find_package(Java 1.8 REQUIRED)
+    include(UseJava)
+    set(JAVA_AWT_LIBRARY NotNeeded)
+    set(JAVA_AWT_INCLUDE_PATH NotNeeded)
+    find_package(JNI REQUIRED)
     add_library(PyDjinniLibrary SHARED ${jni_GENERATED_SOURCES})
     target_include_directories(PyDjinniLibrary PRIVATE ${jni_INCLUDE_DIR})
     target_link_libraries(PyDjinniLibrary PRIVATE JNI::JNI PyDjinniLibrary::Cpp)
     install(DIRECTORY ${java_SOURCE_DIR} DESTINATION dist/PyDjinniLibrary)
+    set_target_properties(PyDjinniLibrary PROPERTIES EXCLUDE_FROM_ALL TRUE)
+    install(TARGETS PyDjinniLibrary DESTINATION dist)
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     add_library(PyDjinniLibrary SHARED ${cppcli_GENERATED_SOURCES} ${cppcli_GENERATED_HEADERS})
     target_include_directories(PyDjinniLibrary PUBLIC ${cppcli_INCLUDE_DIR})
@@ -61,6 +69,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
         COMMON_LANGUAGE_RUNTIME "netcore"
         DOTNET_TARGET_FRAMEWORK "net8.0"
         DOTNET_SDK "Microsoft.NET.Sdk"
+        EXCLUDE_FROM_ALL TRUE
     )
     target_compile_options(PyDjinniLibrary PRIVATE /doc)
     foreach(CONFIGURATION_TYPE ${CMAKE_CONFIGURATION_TYPES})
@@ -72,6 +81,5 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
         )
     endforeach()
     target_link_libraries(PyDjinniLibrary PRIVATE PyDjinniLibrary::Cpp)
+    install(TARGETS PyDjinniLibrary DESTINATION dist)
 endif()
-
-install(TARGETS PyDjinniLibrary DESTINATION dist)

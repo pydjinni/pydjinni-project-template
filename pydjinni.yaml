@@ -33,7 +33,7 @@ build:
 package:
   version: 0.0.5
   target: PyDjinniLibrary
-  configuration: Debug
+  configuration: Release
   swiftpackage:
     publish:
       repository: https://github.com/pydjinni/pydjinni-project-template.git
