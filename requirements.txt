@@ -1,2 +1,2 @@
-conan==2.9.3
+conan==2.11.0
 pydjinni==1.0a5
