@@ -48,9 +48,6 @@ cmake --build . --target tests
 ctest --output-on-failure
 ```
 
-> [!WARNING]
-> This will not work out of the box with the "XCode" generator, see https://github.com/catchorg/Catch2/issues/2411
-  
 ### Windows:
 
 ```sh
