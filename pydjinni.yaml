@@ -15,6 +15,9 @@ generate:
       header: generated/cpp/include
       source: generated/cpp/src
     namespace: pydjinni::example
+    not_null:
+      header: "<gsl/pointers>"
+      type: ::gsl::not_null
   objc:
     out: 
       header: generated/objc/include
@@ -31,7 +34,7 @@ build:
   conan:
     profiles: profiles
 package:
-  version: 0.0.5
+  version: 0.0.6
   target: PyDjinniLibrary
   configuration: Release
   swiftpackage:

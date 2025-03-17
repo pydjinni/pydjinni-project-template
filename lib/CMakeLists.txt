@@ -8,6 +8,8 @@ endif()
 
 project(PyDjinniProjectTemplateLibrary LANGUAGES ${PROJECT_LANGUAGES})
 
+find_package(Microsoft.GSL REQUIRED)
+
 pydjinni_generate(interface.pydjinni 
     CONFIG ${CMAKE_SOURCE_DIR}/pydjinni.yaml
     LANGUAGES cpp java objc cppcli
@@ -22,6 +24,7 @@ add_library(CppPyDjinniLibrary STATIC
 add_library(PyDjinniLibrary::Cpp ALIAS CppPyDjinniLibrary)
 target_include_directories(CppPyDjinniLibrary PUBLIC ${cpp_INCLUDE_DIR})
 target_compile_features(CppPyDjinniLibrary PUBLIC cxx_std_20)
+target_link_libraries(CppPyDjinniLibrary PUBLIC Microsoft.GSL::GSL)
 set_target_properties(CppPyDjinniLibrary PROPERTIES
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED true
@@ -37,6 +40,7 @@ if(CMAKE_SYSTEM_NAME IN_LIST DARWIN_SYSTEM)
         MACOSX_FRAMEWORK_IDENTIFIER pydjinni.template
         PUBLIC_HEADER "${objc_GENERATED_HEADERS}"
         XCODE_ATTRIBUTE_DEFINES_MODULE YES
+        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER pydjinni.template
         XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES
         XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT dwarf-with-dsym
         EXCLUDE_FROM_ALL TRUE

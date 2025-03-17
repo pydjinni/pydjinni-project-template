@@ -6,4 +6,4 @@ add_executable(tests test.cpp)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain PyDjinniLibrary::Cpp)
 
 include(Catch)
-catch_discover_tests(tests)
+catch_discover_tests(tests DISCOVERY_MODE PRE_TEST)

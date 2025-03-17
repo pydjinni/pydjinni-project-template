@@ -2,10 +2,6 @@
 
 using namespace pydjinni::example;
 
-std::string HelloWorld::say_hello() {
+std::string HelloWorld::say_hello() noexcept {
     return "hello from C++!";
-}
-
-void HelloWorld::call_me(const std::function<void(std::string)> & callback) {
-    callback("callback from C++");
 }

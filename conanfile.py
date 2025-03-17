@@ -8,7 +8,9 @@ class PyDjinniLibraryRecipe(ConanFile):
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
 
-    test_requires = "catch2/3.5.2"
+    requires = "ms-gsl/4.1.0"
+    test_requires = "catch2/3.7.0"
+    build_requires = "cmake/3.31.5"
 
     def config_options(self):
         if self.settings.os == "Windows":
