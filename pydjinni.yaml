@@ -1,10 +1,12 @@
 generate:
+  include_dirs:
+    - lib
   java:
-    out: generated/java
+    out: lib/generated/java
     package: com.pydjinni.example
     native_lib: PyDjinniLibrary
   jni:
-    out: generated/jni
+    out: lib/generated/jni
     namespace: pydjinni::example::jni
     identifier:
       file:
@@ -12,23 +14,23 @@ generate:
         prefix: jni_
   cpp:
     out:
-      header: generated/cpp/include
-      source: generated/cpp/src
+      header: lib/generated/cpp/include
+      source: lib/generated/cpp/src
     namespace: pydjinni::example
     not_null:
-      header: "<gsl/pointers>"
+      header: <gsl/pointers>
       type: ::gsl::not_null
   objc:
     out: 
-      header: generated/objc/include
-      source: generated/objc/src
+      header: lib/generated/objc/include
+      source: lib/generated/objc/src
     swift:
       bridging_header: PyDjinniLibrary.h
   objcpp:
-    out: generated/objcpp
+    out: lib/generated/objcpp
     namespace: pydjinni::example::objcpp
   cppcli:
-    out: generated/cppcli
+    out: lib/generated/cppcli
     namespace: pydjinni::example::cppcli
 build:
   conan:

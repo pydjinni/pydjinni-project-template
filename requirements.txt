@@ -1,2 +1,2 @@
-conan==2.14.0
-pydjinni==1.0a6
+conan==2.16.1
+pydjinni==1.0a7
