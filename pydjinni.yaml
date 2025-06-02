@@ -36,14 +36,12 @@ build:
   conan:
     profiles: profiles
 package:
-  version: 0.0.6
   target: PyDjinniLibrary
   configuration: Release
   swiftpackage:
     publish:
-      repository: https://github.com/pydjinni/pydjinni-project-template.git
+      repository: https://github.com/pydjinni/pydjinni-project-template.swift.git
       username: jothepro
-      branch: swiftpackage
     platforms:
       ios: [armv8]
       ios_simulator: [x86_64, armv8]
