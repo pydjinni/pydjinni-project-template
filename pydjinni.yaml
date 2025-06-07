@@ -37,7 +37,6 @@ build:
     profiles: profiles
 package:
   target: PyDjinniLibrary
-  configuration: Release
   swiftpackage:
     publish:
       repository: https://github.com/pydjinni/pydjinni-project-template.swift.git
