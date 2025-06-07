@@ -5,17 +5,18 @@ on:
     branches:
       - main
   release:
-    types: [ published ]
+    types: [published]
   pull_request:
 
 env:
   pydjinni__package__version: ${{ github.event.release.tag_name || '0.0.0' }}
+  pydjinni__package__configuration: ${{ github.event_name == 'release' && github.event.release.prerelease == false && 'Release' || 'Debug' }}
 
 jobs:
   test:
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -23,7 +24,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: 3.13
-          cache: 'pip'
+          cache: "pip"
       - name: Install Python dependencies
         run: pip install -r requirements.txt
       - name: Set up Conan
@@ -74,8 +75,8 @@ jobs:
       - uses: actions/setup-java@v4
         if: matrix.target == 'android'
         with:
-          distribution: 'corretto'
-          java-version: '17'
+          distribution: "corretto"
+          java-version: "17"
       - name: Setup Gradle
         if: matrix.target == 'android'
         uses: gradle/actions/setup-gradle@v4
@@ -83,7 +84,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: 3.13
-          cache: 'pip'
+          cache: "pip"
       - run: pip install -r requirements.txt
       - name: Set up Conan
         run: conan profile detect
